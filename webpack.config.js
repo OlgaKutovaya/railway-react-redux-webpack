@@ -28,7 +28,13 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
+        proxy: {
+            "/train_search/*": {
+                target: "https://booking.uz.gov.ua/ru",
+                secure: false
+            }
+            },
         contentBase: './dist',
         hot: true
     }
-};
+}

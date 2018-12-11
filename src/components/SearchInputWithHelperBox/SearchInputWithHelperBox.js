@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {findSearchedCities, closeSearchedCitiesBox, setDestinationFrom, setDestinationTo} from '../../actionCreators/searchActions';
+import {findSearchedCities, closeSearchedCitiesBox,
+    setDestinationFrom, setDestinationTo} from '../../actionCreators/searchActions';
+import './search-input.css'
 
 class SearchInputWithHelperBox extends Component {
     state = {
@@ -46,7 +48,7 @@ class SearchInputWithHelperBox extends Component {
         return (
             <div>
                 <label>
-                    <p>{this.props.label}</p>
+                    <p className='destination-name'>{this.props.label}</p>
                     <input
                         type='text'
                         className="select-field-way-from"
@@ -54,10 +56,11 @@ class SearchInputWithHelperBox extends Component {
                         onChange={(event) => this.onChangeInputHandler(event)}
                     />
                 </label>
-                <ul>
+                <ul className='destination-list'>
                     {list.map((item) => {
                         return (
                             <li key={item.title}
+                                className='destination-item'
                                 onClick={(event) => this.onFoundedCityClickHandler(item)}>
                                 {item.title}
                             </li>

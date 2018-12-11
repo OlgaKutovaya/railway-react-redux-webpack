@@ -1,11 +1,15 @@
 import {CLOSE_SEARCHED_CITIES_BOX, FIND_SEARCHED_CITIES_FROM,
-    FIND_SEARCHED_CITIES_TO, SET_DESTINATION_FROM, SET_DESTINATION_TO} from '../reducers/types'
+    FIND_SEARCHED_CITIES_TO, SET_DESTINATION_FROM, SET_DESTINATION_TO,
+    DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST} from '../reducers/types'
 
 const initialState = {
     foundedCitiesListFrom: [],
     foundedCitiesListTo: [],
     destinationFrom: {},
-    destinationTo: {}
+    destinationTo: {},
+    departureDate: '',
+    railwayPathList: []
+
 };
 
 export default (state = initialState, action) => {
@@ -37,7 +41,16 @@ export default (state = initialState, action) => {
                 foundedCitiesListFrom: [],
                 foundedCitiesListTo: []
             };
-
+        case DEPARTURE_DATE:
+            return {
+                ...state,
+                departureDate: action.payload
+            };
+        case GET_RAILWAY_PATHS_LIST:
+            return {
+                ...state,
+                railwayPathList: action.payload.data.list
+            };
         default:
             return state;
     }

@@ -1,8 +1,16 @@
 .main-content {
+    position: relative;
     display: flex;
     justify-content: space-around;
-    padding: 50px 5px;
-    width: 100%;
-    height: 100%;
+    margin: 0 auto;
+    padding: 50px 0;
+    width: 700px;
     background: #f6f6f6;
+}
+
+.arrow {
+   margin-top: 10px;
+    font-size: 60px;
+    width: 60px;
+    height: 30px;
 }

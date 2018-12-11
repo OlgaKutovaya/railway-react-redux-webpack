@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import SearchInputWithHelperBox from "../SearchInputWithHelperBox/SearchInputWithHelperBox";
 import './main.css';
+import SearchDate from "../SearchDate/SearchDate";
 
 class Main extends Component {
     render() {
         return (
+            <React.Fragment>
             <main className='main-content'>
                 <SearchInputWithHelperBox label='Откуда' inputType='FROM' />
+                <div className='arrow'>&harr;</div>
                 <SearchInputWithHelperBox label='Куда' inputType='TO'/>
             </main>
+                <SearchDate/>
+
+            </React.Fragment>
         );
     }
 }
