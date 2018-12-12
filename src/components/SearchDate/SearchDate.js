@@ -24,11 +24,20 @@ class SearchDate extends Component {
     };
 
     btnSubmitHandler = (event) => {
-        this.props.getRailwayPathsList();
+        if (!this.props.destinationFrom.title || !this.props.destinationTo.title) {
+            alert('Выберите город');
+        } else if (this.props.destinationFrom.title === this.props.destinationTo.title) {
+            alert('Указано неверное направление');
+            this.props.destinationFrom.title = '';
+            this.props.destinationTo.title = '';
+        } else if (!this.props.departureDate) {
+            alert('Выберите дату');
+        } else {
+            this.props.getRailwayPathsList();
+        }
     };
 
     render() {
-        console.log(this.props.pathsList);
         return (
             <div className='date-wrapper'>
                 <div className='date-time-wrapper'>
@@ -89,7 +98,10 @@ class SearchDate extends Component {
 
 const mapStateToProps = (state) => {
     return ({
-        pathsList: state.railwayData.railwayPathList
+        pathsList: state.railwayData.railwayPathList,
+        destinationFrom: state.railwayData.destinationFrom,
+        destinationTo: state.railwayData.destinationTo,
+        departureDate: state.railwayData.departureDate
     })
 };
 

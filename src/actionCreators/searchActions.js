@@ -1,6 +1,9 @@
-import {FIND_SEARCHED_CITIES_FROM, FIND_SEARCHED_CITIES_TO,
+import {
+    FIND_SEARCHED_CITIES_FROM, FIND_SEARCHED_CITIES_TO,
     CLOSE_SEARCHED_CITIES_BOX, SET_DESTINATION_FROM,
-    SET_DESTINATION_TO, DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST, CHOOSE_DEPARTURE_TIME} from '../reducers/types';
+    SET_DESTINATION_TO, DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST,
+    CHOOSE_DEPARTURE_TIME, GET_INITIAL_CITIES_LIST
+} from '../reducers/types';
 
 export const findSearchedCities = (input, inputType) => {
     return async (dispatch, getState) => {
@@ -18,6 +21,27 @@ export const findSearchedCities = (input, inputType) => {
             })
         }
 
+    };
+};
+
+export const setLinkClickDestination = (input, inputType) => {
+    return async (dispatch, getState) => {
+        const response = await fetch('/train_search/station/?term=' + input);
+        const data = await response.json();
+        const desiredDestination = data[0];
+        console.log(desiredDestination);
+
+        if (inputType === 'FROM') {
+            dispatch({
+                type: SET_DESTINATION_FROM,
+                payload: desiredDestination
+            })
+        } else if (inputType === 'TO') {
+            dispatch({
+                type: SET_DESTINATION_TO,
+                payload: desiredDestination
+            })
+        }
     };
 };
 
@@ -67,14 +91,11 @@ export const getRailwayPathsList = () => {
             },
             body: paramsStr
         });
-
         const data = await response.json();
-
-        console.log(data);
-            dispatch({
-                type: GET_RAILWAY_PATHS_LIST,
-                payload: data
-            })
+        dispatch({
+            type: GET_RAILWAY_PATHS_LIST,
+            payload: data
+        })
     };
 };
 

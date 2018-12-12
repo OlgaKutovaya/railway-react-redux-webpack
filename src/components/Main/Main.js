@@ -7,13 +7,14 @@ class Main extends Component {
     render() {
         return (
             <React.Fragment>
-            <main className='main-content'>
-                <SearchInputWithHelperBox label='ОТКУДА' inputType='FROM' />
-                <div className='arrow'>&harr;</div>
-                <SearchInputWithHelperBox label='КУДА' inputType='TO'/>
-            </main>
+                <main className='main-content'>
+                    <SearchInputWithHelperBox label='ОТКУДА' inputType='FROM'
+                    />
+                    <div className='arrow'>&harr;</div>
+                    <SearchInputWithHelperBox label='КУДА' inputType='TO'
+                    />
+                </main>
                 <SearchDate/>
-
             </React.Fragment>
         );
     }
