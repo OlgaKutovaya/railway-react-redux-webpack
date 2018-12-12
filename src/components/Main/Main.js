@@ -8,9 +8,9 @@ class Main extends Component {
         return (
             <React.Fragment>
             <main className='main-content'>
-                <SearchInputWithHelperBox label='Откуда' inputType='FROM' />
+                <SearchInputWithHelperBox label='ОТКУДА' inputType='FROM' />
                 <div className='arrow'>&harr;</div>
-                <SearchInputWithHelperBox label='Куда' inputType='TO'/>
+                <SearchInputWithHelperBox label='КУДА' inputType='TO'/>
             </main>
                 <SearchDate/>
 

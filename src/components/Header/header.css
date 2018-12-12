@@ -1,8 +1,9 @@
 .heading {
-    background: #e2e2e2;
+    background: #2b4457;
     padding: 15px;
 }
 
 .heading h1 {
     font-size: 20px;
+    color: #ffffff;
 }

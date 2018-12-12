@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {chooseDepartureDate, getRailwayPathsList} from '../../actionCreators/searchActions';
+import {chooseDepartureDate, getRailwayPathsList, chooseDepartureTime} from '../../actionCreators/searchActions';
 import './search-date.css'
 import AvailableTrainsList from "../AvailableTrainsList/AvailableTrainsList";
 
@@ -16,6 +16,13 @@ class SearchDate extends Component {
         });
     };
 
+    handleChangeTime = (event) => {
+        this.setState({departureTime: event.target.value}, () => {
+            console.log(this.state.departureTime);
+            this.props.chooseDepartureTime(this.state.departureTime)
+        });
+    };
+
     btnSubmitHandler = (event) => {
         this.props.getRailwayPathsList();
     };
@@ -24,14 +31,49 @@ class SearchDate extends Component {
         console.log(this.props.pathsList);
         return (
             <div className='date-wrapper'>
-                <label>
-                    <p>Дата</p>
-                    <input type="date"
-                           value={this.state.departureDate}
-                           onChange={(event => {
-                               this.handleChange(event)
-                           })}/>
-                </label>
+                <div className='date-time-wrapper'>
+                    <label>
+                        <p>Дата</p>
+                        <input type="date"
+                               value={this.state.departureDate}
+                               onChange={(event => {
+                                   this.handleChange(event)
+                               })}/>
+                    </label>
+                    <label>
+                        <p>Время отправления с</p>
+                        <select className="select-time"
+                                value={this.state.departureTime}
+                                onChange={(event) => {
+                                    this.handleChangeTime(event)
+                                }}>
+                            <option value="00:00">00:00</option>
+                            <option value="01:00">01:00</option>
+                            <option value="02:00">02:00</option>
+                            <option value="03:00">03:00</option>
+                            <option value="04:00">04:00</option>
+                            <option value="05:00">05:00</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                            <option value="23:00">23:00</option>
+                        </select>
+                    </label>
+                </div>
                 <input type="submit"
                        value='найти билеты'
                        className='btn-submit'
@@ -51,4 +93,4 @@ const mapStateToProps = (state) => {
     })
 };
 
-export default connect(mapStateToProps, {chooseDepartureDate, getRailwayPathsList})(SearchDate);
+export default connect(mapStateToProps, {chooseDepartureDate, getRailwayPathsList, chooseDepartureTime})(SearchDate);

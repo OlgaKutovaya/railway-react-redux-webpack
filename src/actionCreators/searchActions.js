@@ -1,6 +1,6 @@
 import {FIND_SEARCHED_CITIES_FROM, FIND_SEARCHED_CITIES_TO,
     CLOSE_SEARCHED_CITIES_BOX, SET_DESTINATION_FROM,
-    SET_DESTINATION_TO, DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST} from '../reducers/types';
+    SET_DESTINATION_TO, DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST, CHOOSE_DEPARTURE_TIME} from '../reducers/types';
 
 export const findSearchedCities = (input, inputType) => {
     return async (dispatch, getState) => {
@@ -49,14 +49,14 @@ export const chooseDepartureDate = (date) => {
     }
 };
 
-
 export const getRailwayPathsList = () => {
     return async (dispatch, getState) => {
         const currStateData = getState();
 
         const paramsStr = 'from=' + currStateData.railwayData.destinationFrom.value +
             '&to=' + currStateData.railwayData.destinationTo.value +
-            '&date=' + currStateData.railwayData.departureDate;
+            '&date=' + currStateData.railwayData.departureDate +
+            '&time=' + currStateData.railwayData.departureTime;
 
         console.log(paramsStr);
 
@@ -78,4 +78,9 @@ export const getRailwayPathsList = () => {
     };
 };
 
-
+export const chooseDepartureTime = (time) => {
+    return {
+        type: CHOOSE_DEPARTURE_TIME,
+        payload: time
+    }
+};

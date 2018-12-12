@@ -4,5 +4,9 @@ html, body, * {
 }
 
 body {
-    background: #f6f6f6;;
+    background: #f9f4e6;;
+}
+
+input, select {
+    border: 1px solid #2b4457;
 }

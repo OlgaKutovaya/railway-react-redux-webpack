@@ -5,9 +5,6 @@ module.exports = app => {
         proxy("/train_search", {
             target: "https://booking.uz.gov.ua/ru",
             changeOrigin: true
-            // pathRewrite: {
-            //     "^/checkout": "",
-            // },
         })
     )
 };
