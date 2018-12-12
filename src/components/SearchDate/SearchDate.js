@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {chooseDepartureDate, getRailwayPathsList} from '../../actionCreators/searchActions';
 import './search-date.css'
+import AvailableTrainsList from "../AvailableTrainsList/AvailableTrainsList";
 
 class SearchDate extends Component {
 
@@ -38,20 +39,7 @@ class SearchDate extends Component {
                            this.btnSubmitHandler(event)
                        }}
                 />
-                {this.props.pathsList.map((item) => {
-                    return (
-                        <div key={item.num}>
-                            <p> Откуда: {JSON.stringify(item.from.station)}</p>
-                            <p> Дата отправления: {JSON.stringify(item.from.date)}</p>
-                            <p> Время отправления: {JSON.stringify(item.from.time)}</p>
-                            <p> Куда: {JSON.stringify(item.to.station)}</p>
-                            <p> Дата прибытия: {JSON.stringify(item.to.date)}</p>
-                            <p> Время прибытия: {JSON.stringify(item.to.time)}</p>
-                            <hr/>
-                        </div>
-                    )
-                })
-                }
+                <AvailableTrainsList/>
             </div>
         );
     }
