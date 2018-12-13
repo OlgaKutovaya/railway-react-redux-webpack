@@ -1,12 +1,23 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {findSearchedCities, closeSearchedCitiesBox, setDestinationFrom, setDestinationTo,
-    setLinkClickDestination} from '../../actionCreators/searchActions';
+import {debounce} from 'lodash';
+import {
+    findSearchedCities, closeSearchedCitiesBox, setDestinationFrom,
+    setDestinationTo, setLinkClickDestination
+} from '../../actionCreators/searchActions';
 import './search-input.css'
 
 class SearchInputWithHelperBox extends Component {
+
     state = {
         value: '',
+        citiesList: [
+            'Одесса',
+            'Киев',
+            'Львов',
+            'Харьков',
+            'Днепр'
+        ]
     };
 
     onChangeInputHandler = (event) => {
@@ -15,13 +26,13 @@ class SearchInputWithHelperBox extends Component {
         });
     };
 
-    getSearchedCities = (input) => {
+    getSearchedCities = debounce((input) => {
         if (this.state.value) {
             this.props.findSearchedCities(input, this.props.inputType);
         } else {
             this.props.closeSearchedCitiesBox();
         }
-    };
+    }, 1000);
 
     onFoundedCityClickHandler = (item) => {
         this.setState({
@@ -32,7 +43,6 @@ class SearchInputWithHelperBox extends Component {
             } else if (this.props.inputType === 'TO') {
                 this.props.setDestinationTo(item);
             }
-
             this.props.closeSearchedCitiesBox();
         })
     };
@@ -49,13 +59,12 @@ class SearchInputWithHelperBox extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.railwayData.destinationFrom.title !== this.state.value ) {
+        if (nextProps.railwayData.destinationFrom.title !== this.state.value) {
             if (this.props.inputType === 'FROM') {
-            this.setState({value: nextProps.railwayData.destinationFrom.title});
+                this.setState({value: nextProps.railwayData.destinationFrom.title});
             } else if (this.props.inputType === 'TO') {
                 this.setState({value: nextProps.railwayData.destinationTo.title});
             }
-
         }
     }
 
@@ -81,11 +90,13 @@ class SearchInputWithHelperBox extends Component {
                      onClick={(event) =>
                          this.cityLinkClickHandler(event)
                      }>
-                    <span>Одесса</span>
-                    <span>Киев</span>
-                    <span>Львов</span>
-                    <span>Харьков</span>
-                    <span>Днепр</span>
+                    {
+                        this.state.citiesList.map((item) => {
+                            return (
+                                <span key={item}>{item}</span>
+                            )
+                        })
+                    }
                 </div>
                 <ul className='destination-list'>
                     {list.map((item) => {
@@ -109,5 +120,11 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {findSearchedCities, closeSearchedCitiesBox, setDestinationFrom,
-    setDestinationTo, setLinkClickDestination})(SearchInputWithHelperBox);
+export default connect(mapStateToProps,
+    {
+        findSearchedCities,
+        closeSearchedCitiesBox,
+        setDestinationFrom,
+        setDestinationTo,
+        setLinkClickDestination
+    })(SearchInputWithHelperBox);

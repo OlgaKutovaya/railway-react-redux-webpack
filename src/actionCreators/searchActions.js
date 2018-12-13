@@ -1,8 +1,9 @@
 import {
-    FIND_SEARCHED_CITIES_FROM, FIND_SEARCHED_CITIES_TO,
-    CLOSE_SEARCHED_CITIES_BOX, SET_DESTINATION_FROM,
-    SET_DESTINATION_TO, DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST,
-    CHOOSE_DEPARTURE_TIME} from '../reducers/types';
+    FIND_SEARCHED_CITIES_FROM, FIND_SEARCHED_CITIES_TO, CLOSE_SEARCHED_CITIES_BOX,
+    SET_DESTINATION_FROM, SET_DESTINATION_TO, DEPARTURE_DATE, GET_RAILWAY_PATHS_LIST,
+    CHOOSE_DEPARTURE_TIME
+} from '../types/action-types';
+import queryString from 'query-string';
 
 export const findSearchedCities = (input, inputType) => {
     return async (dispatch, getState) => {
@@ -29,7 +30,6 @@ export const setLinkClickDestination = (input, inputType) => {
         const data = await response.json();
         const desiredDestination = data[0];
         console.log(desiredDestination);
-
         if (inputType === 'FROM') {
             dispatch({
                 type: SET_DESTINATION_FROM,
@@ -75,11 +75,14 @@ export const chooseDepartureDate = (date) => {
 export const getRailwayPathsList = () => {
     return async (dispatch, getState) => {
         const currStateData = getState();
-
-        const paramsStr = 'from=' + currStateData.railwayData.destinationFrom.value +
-            '&to=' + currStateData.railwayData.destinationTo.value +
-            '&date=' + currStateData.railwayData.departureDate +
-            '&time=' + currStateData.railwayData.departureTime;
+        const {destinationFrom, destinationTo, departureDate, departureTime} = currStateData.railwayData;
+        const paramsObj = {
+            from: destinationFrom.value,
+            to: destinationTo.value,
+            date: departureDate,
+            time: departureTime || '00:00'
+        };
+        const paramsStr = queryString.stringify(paramsObj);
 
         console.log(paramsStr);
 
