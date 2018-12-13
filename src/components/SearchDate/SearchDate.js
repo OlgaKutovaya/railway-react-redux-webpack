@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {chooseDepartureDate, getRailwayPathsList, chooseDepartureTime} from '../../actionCreators/searchActions';
 import './search-date.css'
 import AvailableTrainsList from "../AvailableTrainsList/AvailableTrainsList";
+import ButtonSubmitSearchTrains from "../ButtonSubmitSearchTrains/ButtonSubmitSearchTrains";
 
 class SearchDate extends Component {
 
@@ -21,20 +22,6 @@ class SearchDate extends Component {
             console.log(this.state.departureTime);
             this.props.chooseDepartureTime(this.state.departureTime)
         });
-    };
-
-    btnSubmitHandler = (event) => {
-        if (!this.props.destinationFrom.title || !this.props.destinationTo.title) {
-            alert('Выберите город');
-        } else if (this.props.destinationFrom.title === this.props.destinationTo.title) {
-            alert('Указано неверное направление');
-            this.props.destinationFrom.title = '';
-            this.props.destinationTo.title = '';
-        } else if (!this.props.departureDate) {
-            alert('Выберите дату');
-        } else {
-            this.props.getRailwayPathsList();
-        }
     };
 
     render() {
@@ -83,13 +70,7 @@ class SearchDate extends Component {
                         </select>
                     </label>
                 </div>
-                <input type="submit"
-                       value='найти билеты'
-                       className='btn-submit'
-                       onClick={(event) => {
-                           this.btnSubmitHandler(event)
-                       }}
-                />
+               <ButtonSubmitSearchTrains/>
                 <AvailableTrainsList/>
             </div>
         );
@@ -98,10 +79,7 @@ class SearchDate extends Component {
 
 const mapStateToProps = (state) => {
     return ({
-        pathsList: state.railwayData.railwayPathList,
-        destinationFrom: state.railwayData.destinationFrom,
-        destinationTo: state.railwayData.destinationTo,
-        departureDate: state.railwayData.departureDate
+        pathsList: state.railwayData.railwayPathList
     })
 };
 

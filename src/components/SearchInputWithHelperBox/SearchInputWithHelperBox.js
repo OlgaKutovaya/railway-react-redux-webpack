@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {findSearchedCities, closeSearchedCitiesBox, setDestinationFrom, setDestinationTo, getInitialCitiesList,
+import {findSearchedCities, closeSearchedCitiesBox, setDestinationFrom, setDestinationTo,
     setLinkClickDestination} from '../../actionCreators/searchActions';
 import './search-input.css'
 
@@ -110,4 +110,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {findSearchedCities, closeSearchedCitiesBox, setDestinationFrom,
-    setDestinationTo, getInitialCitiesList, setLinkClickDestination})(SearchInputWithHelperBox);
+    setDestinationTo, setLinkClickDestination})(SearchInputWithHelperBox);
