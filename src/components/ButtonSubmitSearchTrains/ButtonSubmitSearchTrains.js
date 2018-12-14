@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {getRailwayPathsList} from '../../actionCreators/searchActions';
-import connect from "react-redux/es/connect/connect";
+import {getRailwayPathsList} from '../../modules/buttonSubmitSearchTrains/actions';
+import {connect} from "react-redux";
 import './btn-submit-search-trains.css';
 
 class ButtonSubmitSearchTrains extends Component {
@@ -9,8 +9,6 @@ class ButtonSubmitSearchTrains extends Component {
             alert('Выберите город');
         } else if (this.props.destinationFrom.title === this.props.destinationTo.title) {
             alert('Указано неверное направление');
-            this.props.destinationFrom.title = '';
-            this.props.destinationTo.title = '';
         } else if (!this.props.departureDate) {
             alert('Выберите дату');
         } else {
@@ -33,10 +31,10 @@ class ButtonSubmitSearchTrains extends Component {
 
 const mapStateToProps = (state) => {
     return ({
-        pathsList: state.railwayData.railwayPathList,
+        pathsList: state.railwayPathListData.railwayPathList,
         destinationFrom: state.railwayData.destinationFrom,
         destinationTo: state.railwayData.destinationTo,
-        departureDate: state.railwayData.departureDate
+        departureDate: state.departureTimeData.departureDate
     })
 };
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import connect from "react-redux/es/connect/connect";
+import {connect} from "react-redux";
 
 class AvailableTrainsList extends Component {
+
     render() {
         return (
             <div>
@@ -27,7 +28,7 @@ class AvailableTrainsList extends Component {
 
 const mapStateToProps = (state) => {
     return ({
-        pathsList: state.railwayData.railwayPathList
+        pathsList: state.railwayPathListData.railwayPathList
     })
 };
 

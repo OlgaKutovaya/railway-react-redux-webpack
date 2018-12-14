@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {chooseDepartureDate, getRailwayPathsList, chooseDepartureTime} from '../../actionCreators/searchActions';
-import './search-date.css'
+import {chooseDepartureDate, chooseDepartureTime} from '../../modules/searchDate/actions';
 import AvailableTrainsList from "../AvailableTrainsList/AvailableTrainsList";
 import ButtonSubmitSearchTrains from "../ButtonSubmitSearchTrains/ButtonSubmitSearchTrains";
+import './search-date.css';
 
 class SearchDate extends Component {
 
@@ -12,15 +12,13 @@ class SearchDate extends Component {
     };
 
     handleChange = (event) => {
-        this.setState({departureDate: event.target.value}, () => {
-            this.props.chooseDepartureDate(this.state.departureDate);
-        });
+        this.setState({departureDate: event.target.value});
+        this.props.chooseDepartureDate(event.target.value);
     };
 
     handleChangeTime = (event) => {
-        this.setState({departureTime: event.target.value}, () => {
-            this.props.chooseDepartureTime(this.state.departureTime)
-        });
+        this.setState({departureTime: event.target.value});
+        this.props.chooseDepartureTime(event.target.value);
     };
 
     render() {
@@ -71,13 +69,12 @@ class SearchDate extends Component {
 
 const mapStateToProps = (state) => {
     return ({
-        pathsList: state.railwayData.railwayPathList
+        pathsList: state.railwayPathListData.railwayPathList
     })
 };
 
 export default connect(mapStateToProps,
     {
         chooseDepartureDate,
-        getRailwayPathsList,
         chooseDepartureTime
     })(SearchDate);

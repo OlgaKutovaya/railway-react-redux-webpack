@@ -1,5 +1,5 @@
 import "@babel/polyfill";
-import rootReducer from './src/reducers/rootReducer';
+import rootReducer from './src/reducer';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 

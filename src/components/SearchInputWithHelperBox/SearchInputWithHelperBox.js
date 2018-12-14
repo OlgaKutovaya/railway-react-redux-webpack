@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {debounce} from 'lodash';
 import {
-    findSearchedCities, closeSearchedCitiesBox, setDestinationFrom,
-    setDestinationTo, setLinkClickDestination
-} from '../../actionCreators/searchActions';
-import './search-input.css'
+    findSearchedCities, closeSearchedCitiesBox, setDestinationFrom, setDestinationTo,
+    setLinkClickDestination
+} from '../../modules/searchInputWithHelperBox/actions';
+import './search-input.css';
 
 class SearchInputWithHelperBox extends Component {
 
@@ -21,9 +21,8 @@ class SearchInputWithHelperBox extends Component {
     };
 
     onChangeInputHandler = (event) => {
-        this.setState({value: event.target.value}, () => {
-            this.getSearchedCities(this.state.value);
-        });
+        this.setState({value: event.target.value});
+        this.getSearchedCities(event.target.value);
     };
 
     getSearchedCities = debounce((input) => {
@@ -48,25 +47,21 @@ class SearchInputWithHelperBox extends Component {
     };
 
     cityLinkClickHandler = (event) => {
-        console.log(event.target.innerHTML);
         if (event.target.tagName === 'SPAN') {
+            const inputValue = event.target.innerHTML;
             if (this.props.inputType === 'FROM') {
-                this.props.setLinkClickDestination(event.target.innerHTML, 'FROM');
+                this.props.setLinkClickDestination(inputValue, 'FROM')
+                    .then(() => {
+                        this.setState({value: inputValue});
+                    })
             } else if (this.props.inputType === 'TO') {
-                this.props.setLinkClickDestination(event.target.innerHTML, 'TO');
+                this.props.setLinkClickDestination(inputValue, 'TO')
+                    .then(() => {
+                        this.setState({value: inputValue});
+                    })
             }
         }
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.railwayData.destinationFrom.title !== this.state.value) {
-            if (this.props.inputType === 'FROM') {
-                this.setState({value: nextProps.railwayData.destinationFrom.title});
-            } else if (this.props.inputType === 'TO') {
-                this.setState({value: nextProps.railwayData.destinationTo.title});
-            }
-        }
-    }
 
     render() {
         let list = [];
